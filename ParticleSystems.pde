@@ -1,4 +1,6 @@
 import controlP5.*;
+import org.ejml.*;
+import org.ejml.simple.*;
 
 ControlP5 cp5;
 Numberbox nb1;
@@ -28,6 +30,8 @@ void setup() {
      .setFocus(true)
      .setColor(color(255,0,0))
      ;
+
+  SimpleMatrix m = SimpleMatrix.identity(3);
 }
 
 void draw() {
