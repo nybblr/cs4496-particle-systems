@@ -2,11 +2,18 @@ import controlP5.*;
 import org.ejml.*;
 import org.ejml.simple.*;
 
+int tc = 0; // global time counter variable, in frames
+float t = 0; // time in seconds
+int fps = 60; // frames per second
+
+boolean step = false; // step through frames
+
 ControlP5 cp5;
 Numberbox nb1;
 
 void setup() {
   size(800, 600);
+  frameRate(fps);
 
   cp5 = new ControlP5(this);
 
@@ -36,7 +43,14 @@ void setup() {
 
 void draw() {
   background(255);
+
+  // Update time from counter
+  t = (float)tc / fps;
+
   fill(0);
   stroke(0);
   text("It is "+nb1.getValue(), 100, 100);
+
+  if(step)
+    tc++;
 }
