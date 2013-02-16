@@ -55,6 +55,7 @@ class pt { float x=0,y=0;
 class vec { float x=0,y=0;
  // CREATE
   vec () {};
+  vec (vec v) {x = v.x; y = v.y;};
   vec (float px, float py) {x = px; y = py;};
 
  // MODIFY

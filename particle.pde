@@ -1,26 +1,26 @@
-class particle {
+class Particle {
   pt x;
   vec v;
   vec f;
   float m;
 
-  particle(pt x, vec v, vec f, float m) {
-    this.x = pt(x);
-    this.v = vec(v);
-    this.f = vec(f);
+  Particle(pt x, vec v, vec f, float m) {
+    this.x = new pt(x);
+    this.v = new vec(v);
+    this.f = new vec(f);
     this.m = m;
   }
 
-  particle(pt x, float m) {
+  Particle(pt x, float m) {
     this(x, new vec(), new vec(), m);
   }
 
-  particle addForce(vec g) {
+  Particle addForce(vec g) {
     this.f.add(g);
     return this;
   }
-  
-  particle clearForce() {
+
+  Particle clearForce() {
     this.f.zero();
     return this;
   }
