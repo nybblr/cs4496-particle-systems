@@ -1,9 +1,10 @@
 abstract class Integrator {
   int t = 0; // how many time steps?
-  abstract Integrator step(Particle p);
+  abstract Particle step(Particle p);
 
-  Integrator resetTime() {
+  int resetTime() {
+    int time = this.t;
     this.t = 0;
-    return this;
+    return time;
   }
 }
