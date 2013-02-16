@@ -3,6 +3,6 @@ class Gravity extends Force {
   vec direction = new vec(0, -1.0);
 
   vec forceOn(Particle p) {
-    return (new vec(this.direction)).scaleBy(this.magnitude);
+    return (new vec(this.direction)).scaleBy(this.magnitude).scaleBy(p.m);
   }
 }
