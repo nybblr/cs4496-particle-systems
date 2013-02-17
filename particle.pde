@@ -24,4 +24,12 @@ class Particle {
     this.f.zero();
     return this;
   }
+
+  Particle draw(color c) {
+    fill(c);
+    noStroke();
+    show(x, 20);
+
+    return this;
+  }
 }

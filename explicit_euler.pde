@@ -6,6 +6,8 @@ class ExplicitEuler extends Integrator {
     p.x = xn; p.v = vn;
     p.clearForce();
 
+    t += h;
+
     return p;
   }
 }
