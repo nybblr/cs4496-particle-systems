@@ -4,48 +4,58 @@ import org.ejml.simple.*;
 
 int tc = 0; // global time counter variable, in frames
 float t = 0; // time in seconds
-int fps = 10; // frames per second
+int fps = 15; // frames per second
 
 boolean step = false; // step through frames
-Toggle animate;
 
 ControlP5 cp5;
-Numberbox nb1;
+Toggle animate;
+Numberbox gravity;
 
-Particle p1 = new Particle(new pt(100, 50), 10),
-         p2 = new Particle(new pt(400, 50), 10),
-         p3 = new Particle(new pt(700, 50), 10);
+Particle p1, p2, p3;
 
 Integrator ee, gt;
 
-Force g = new Gravity();
+Force g;
 
 void setup() {
   size(800, 600);
   frameRate(fps);
 
+  defineMyColors();
+
+  // Particles
+  p1 = new Particle(new pt(100, 50), 10, "Explicit Euler", red);
+  p2 = new Particle(new pt(400, 50), 10, "Ground Truth", blue);
+  p3 = new Particle(new pt(700, 50), 10, "Runge-Kutta 3", green);
+
+  // Forces
+  g = new Gravity();
+  float dg = ((Gravity)g).magnitude;
+
+  // Integrators
+  ee = new ExplicitEuler();
+  gt = new GroundTruth();
+  ((GroundTruth)gt).initWith(p2);
+
+  // Control panel
   cp5 = new ControlP5(this);
 
-  nb1 = cp5.addNumberbox("numberboxValue")
-    .setPosition(100,200)
-    .setSize(100,14)
-    .setRange(0,200)
+  gravity = cp5.addNumberbox("gravityValue")
+    .setPosition(100,500)
+    .setSize(100,20)
+    .setRange(0,100)
     .setMultiplier(0.1) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
-    .setValue(100)
+    .setValue(dg)
     ;
 
-  // create a toggle and change the default look to a (on/off) switch look
-  animate = cp5.addToggle("toggle")
-    .setPosition(40,250)
+  animate = cp5.addToggle("animateState")
+    .setPosition(20,500)
     .setSize(50,20)
     .setValue(false)
     .setMode(ControlP5.SWITCH)
     ;
-
-  ee = new ExplicitEuler();
-  gt = new GroundTruth();
-  ((GroundTruth)gt).initWith(p2);
 }
 
 void draw() {
@@ -54,13 +64,10 @@ void draw() {
   // Update time from counter
   t = (float)tc / fps;
 
-  fill(0);
-  stroke(0);
-  text("animate: "+animate.getState(), 50, 550);
-
-  p1.draw(red);
-  p2.draw(green);
-  p3.draw(blue);
+  p1.draw();
+  p2.draw();
+  p2.drawGuide();
+  p3.draw();
 
   if(step || animate.getState()) {
     g.applyForce(p1);
@@ -71,4 +78,18 @@ void draw() {
     tc++;
     step = false;
   }
+}
+
+void keyPressed() {
+  if(key==' ')
+    animate.setState(true);
+}
+
+void keyReleased() {
+  if(key==' ')
+    animate.setState(false);
+}
+
+void gravityValue(float value) {
+  ((Gravity)g).magnitude = value;
 }
