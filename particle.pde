@@ -32,10 +32,32 @@ class Particle {
     return this;
   }
 
+  SimpleMatrix dx(SimpleMatrix x, t, h) {
+    p = toParticle(x);
+    vec v0 = p.v;
+    vec a = (new vec(p.f)).divideBy(p.m);
+    vec vn = v0.add(a.scaleBy(h));
+    p.v = vn;
+    return p.toPhase();
+  }
+
+  SimpleMatrix toPhase() {
+  
+  }
+
+  Particle toParticle(SimpleMatrix m) {
+  
+  }
+
   Particle draw() {
     fill(c);
     noStroke();
     show(x, r);
+
+    fill(black);
+    stroke(black);
+    textAlign(CENTER, BOTTOM);
+    text(label, x.x, x.y-r);
 
     return this;
   }

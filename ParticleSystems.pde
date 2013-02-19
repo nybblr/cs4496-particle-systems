@@ -1,6 +1,7 @@
 import controlP5.*;
 import org.ejml.*;
 import org.ejml.simple.*;
+import org.ejml.ops.*;
 
 int tc = 0; // global time counter variable, in frames
 float t = 0; // time in seconds
