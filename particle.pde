@@ -42,11 +42,21 @@ class Particle {
   }
 
   SimpleMatrix toPhase() {
-  
+    SimpleMatrix m = new SimpleMatrix(2, 2);
+
+    m.setRow(0, 0, x.x, x.y);
+    m.setRow(0, 0, v.x, v.y);
+
+    return m;
   }
 
   Particle toParticle(SimpleMatrix m) {
-  
+    Particle p = new Particle(this);
+
+    p.x.x = m.get(0,0); p.x.y = m.get(0,1);
+    p.v.x = m.get(1,0); p.v.y = m.get(1,1);
+
+    return p;
   }
 
   Particle draw() {
