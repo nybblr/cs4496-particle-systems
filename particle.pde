@@ -39,22 +39,38 @@ class Particle {
     return this;
   }
 
-  SimpleBase dx(SimpleBase x, float t, float h) {
-    Particle p = toParticle(x);
-    vec v0 = p.v;
-    vec a = (new vec(p.f)).divideBy(p.m);
-    vec vn = v0.add(a.scaleBy(h));
-    p.v = vn;
-    return p.xPhase();
+  SimpleBase dx(SimpleBase x, SimpleBase k, float t, float h) {
+    /*Particle p = toParticle(x);*/
+    /*vec v0 = p.v;*/
+    /*vec a = (new vec(p.f)).divideBy(p.m);*/
+    /*vec vn = v0.add(a.scaleBy(h));*/
+    /*p.v = vn;*/
+    /*return p.xPhase();*/
+    SimpleBase d = dxPhase();
+
+    // Add in k's velocity and the force's acceleration
+    d.set(0,0, d.get(0,0) + d.get(1,0) + f.x/m*h);
+    d.set(0,1, d.get(0,1) + d.get(1,1) + f.y/m*h);
+
+    return d;
   }
 
   SimpleBase xPhase() {
     SimpleBase m = new SimpleMatrix(2, 2);
 
     m.setRow(0, 0, x.x, x.y);
-    m.setRow(0, 0, v.x, v.y);
+    m.setRow(1, 0, v.x, v.y);
 
     return m;
+  }
+
+  SimpleBase dxPhase() {
+    SimpleBase d = new SimpleMatrix(2, 2);
+
+    d.setRow(0, 0, v.x, v.y);
+    d.setRow(1, 0, f.x/m, f.y/m);
+
+    return d;
   }
 
   Particle toParticle(SimpleBase m) {

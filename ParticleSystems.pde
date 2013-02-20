@@ -15,7 +15,7 @@ Numberbox gravity;
 
 Particle p1, p2, p3;
 
-Integrator ee, gt;
+Integrator ee, rk, gt;
 
 Force g;
 
@@ -36,6 +36,7 @@ void setup() {
 
   // Integrators
   ee = new ExplicitEuler();
+  rk = new RungeKutta();
   gt = new GroundTruth();
   ((GroundTruth)gt).initWith(p2);
 
@@ -73,7 +74,9 @@ void draw() {
   if(step || animate.getState()) {
     g.applyForce(p1);
     g.applyForce(p2);
+    g.applyForce(p3);
     ee.step(p1, 1.0 / fps);
+    rk.step(p1, 1.0 / fps);
     gt.step(p2, 1.0 / fps);
 
     tc++;
