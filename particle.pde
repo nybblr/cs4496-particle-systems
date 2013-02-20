@@ -29,6 +29,10 @@ class Particle {
     this.c = c;
   }
 
+  String toString() {
+    return xPhase().toString();
+  }
+
   Particle addForce(vec g) {
     this.f.add(g);
     return this;

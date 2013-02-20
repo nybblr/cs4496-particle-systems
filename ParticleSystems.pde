@@ -5,7 +5,7 @@ import org.ejml.ops.*;
 
 int tc = 0; // global time counter variable, in frames
 float t = 0; // time in seconds
-int fps = 15; // frames per second
+int fps = 5; // frames per second
 
 boolean step = false; // step through frames
 
@@ -76,7 +76,7 @@ void draw() {
     g.applyForce(p2);
     g.applyForce(p3);
     ee.step(p1, 1.0 / fps);
-    rk.step(p1, 1.0 / fps);
+    rk.step(p3, 1.0 / fps);
     gt.step(p2, 1.0 / fps);
 
     tc++;
