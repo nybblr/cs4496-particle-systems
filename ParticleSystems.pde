@@ -28,7 +28,7 @@ void setup() {
   // Particles
   p1 = new Particle(new pt(100, 50), 10, "Explicit Euler", red);
   p2 = new Particle(new pt(400, 50), 10, "Ground Truth", blue);
-  p3 = new Particle(new pt(700, 50), 10, "Runge-Kutta 3", green);
+  p3 = new Particle(new pt(700, 50), 10, "Runge-Kutta 4", green);
 
   // Forces
   g = new Gravity();

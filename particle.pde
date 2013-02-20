@@ -9,6 +9,13 @@ class Particle {
   color c = 0;
   String label;
 
+  Particle(Particle p) {
+    this(p.x, p.v, p.f, p.m);
+    this.r = p.r;
+    this.c = p.c;
+    this.label = new String(p.label);
+  }
+
   Particle(pt x, vec v, vec f, float m) {
     this.x = new pt(x);
     this.v = new vec(v);
@@ -32,17 +39,17 @@ class Particle {
     return this;
   }
 
-  SimpleMatrix dx(SimpleMatrix x, t, h) {
-    p = toParticle(x);
+  SimpleBase dx(SimpleBase x, float t, float h) {
+    Particle p = toParticle(x);
     vec v0 = p.v;
     vec a = (new vec(p.f)).divideBy(p.m);
     vec vn = v0.add(a.scaleBy(h));
     p.v = vn;
-    return p.toPhase();
+    return p.xPhase();
   }
 
-  SimpleMatrix toPhase() {
-    SimpleMatrix m = new SimpleMatrix(2, 2);
+  SimpleBase xPhase() {
+    SimpleBase m = new SimpleMatrix(2, 2);
 
     m.setRow(0, 0, x.x, x.y);
     m.setRow(0, 0, v.x, v.y);
@@ -50,11 +57,11 @@ class Particle {
     return m;
   }
 
-  Particle toParticle(SimpleMatrix m) {
+  Particle toParticle(SimpleBase m) {
     Particle p = new Particle(this);
 
-    p.x.x = m.get(0,0); p.x.y = m.get(0,1);
-    p.v.x = m.get(1,0); p.v.y = m.get(1,1);
+    p.x.x = (float)m.get(0,0); p.x.y = (float)m.get(0,1);
+    p.v.x = (float)m.get(1,0); p.v.y = (float)m.get(1,1);
 
     return p;
   }
