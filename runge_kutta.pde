@@ -8,14 +8,13 @@ class RungeKutta extends Integrator {
     SimpleBase k3 = p.dx(x0, ((SimpleBase)(new SimpleMatrix((SimpleMatrix)k2))).divide(2.0), t, h / 2.0).scale(h);
     SimpleBase k4 = p.dx(x0, ((SimpleBase)(new SimpleMatrix((SimpleMatrix)k3))), t, h).scale(h);
 
-    SimpleBase xn = x0.copy();
-    xn = xn.plus(k1.scale(1.0/6.0));
-    xn = xn.plus(k2.scale(1.0/3.0));
-    xn = xn.plus(k3.scale(1.0/3.0));
-    xn = xn.plus(k4.scale(1.0/6.0));
+    x0 = x0.plus(k1.scale(1.0/6.0));
+    x0 = x0.plus(k2.scale(1.0/3.0));
+    x0 = x0.plus(k3.scale(1.0/3.0));
+    x0 = x0.plus(k4.scale(1.0/6.0));
 
-    p.x.x = (float)xn.get(0,0); p.x.y = (float)xn.get(0,1);
-    p.v.x = (float)xn.get(1,0); p.v.y = (float)xn.get(1,1);
+    p.x.x = (float)x0.get(0,0); p.x.y = (float)x0.get(0,1);
+    p.v.x = (float)x0.get(1,0); p.v.y = (float)x0.get(1,1);
 
     p.clearForce();
 

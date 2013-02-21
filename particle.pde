@@ -1,4 +1,6 @@
 class Particle {
+  pt x0;
+  vec v0;
   pt x;
   vec v;
   vec f;
@@ -11,12 +13,16 @@ class Particle {
 
   Particle(Particle p) {
     this(p.x, p.v, p.f, p.m);
+    this.x0 = new pt(p.x);
+    this.v0 = new vec(p.v);
     this.r = p.r;
     this.c = p.c;
     this.label = new String(p.label);
   }
 
   Particle(pt x, vec v, vec f, float m) {
+    this.x0 = new pt(x);
+    this.v0 = new vec(v);
     this.x = new pt(x);
     this.v = new vec(v);
     this.f = new vec(f);
@@ -31,6 +37,14 @@ class Particle {
 
   String toString() {
     return xPhase().toString();
+  }
+
+  Particle reset() {
+    clearForce();
+    x.x = x0.x; x.y = x0.y;
+    v.x = v0.x; v.y = v0.y;
+
+    return this;
   }
 
   Particle addForce(vec g) {
@@ -53,8 +67,8 @@ class Particle {
     SimpleBase d = dxPhase();
 
     // Add in k's velocity and the force's acceleration
-    d.set(0,0, d.get(0,0) + d.get(1,0) + f.x/m*h);
-    d.set(0,1, d.get(0,1) + d.get(1,1) + f.y/m*h);
+    d.set(0,0, d.get(0,0) + k.get(1,0) + f.x/m*h);
+    d.set(0,1, d.get(0,1) + k.get(1,1) + f.y/m*h);
 
     return d;
   }

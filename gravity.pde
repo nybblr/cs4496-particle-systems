@@ -1,5 +1,5 @@
 class Gravity extends Force {
-  float magnitude = 9.8;
+  float magnitude = 10;
   vec direction = new vec(0, 1.0);
 
   vec forceOn(Particle p) {
