@@ -70,12 +70,13 @@ void draw() {
 
   // Draw the floor
   pushMatrix();
-  translate(0, 300, 0);
-  rotateX(PI/2);
+  translate(0, height/2, 0);
+  rotateZ(PI/2);
   fill(yellow);
-  stroke(yellow);
+  noStroke();
   rectMode(CENTER);
-  rect(0,0,width,height);
+  /*rect(0,0,width,height);*/
+  box(10, width, 150);
   popMatrix();
 
   p1.draw();
@@ -129,7 +130,12 @@ void mouseDragged() {
     zoom = max(zoom, 0.4);
   }
 
+  if(keyPressed&&key=='e') {
+    L.x-=(mouseX-pmouseX); L.x=max(-300,L.x); L.x=min(300,L.x);
+    L.y-=(mouseY-pmouseY); L.y=max(-300,L.y); L.y=min(300,L.y);
+  }
+
   if(!keyPressed) {
-    a-=PI*(mouseY-pmouseY)/height; a=max(-PI/2+0.1,a); a=min(PI/2-0.1,a);  b+=PI*(mouseX-pmouseX)/width;
+    a-=PI*(mouseY-pmouseY)/height; a=max(-PI/2+0.1,a); a=min(PI/2-0.1,a); b+=PI*(mouseX-pmouseX)/width;
   }
 }

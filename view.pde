@@ -1,6 +1,6 @@
 pt T = P(); // camera target point set with mouse when pressing 't'
 pt E = P(), L=P(); // eye and lookAt
-float d=600, b=PI/2.0, a=0; // view parameters: distance, angles, q
+float d=800, b=PI/2.0, a=0; // view parameters: distance, angles, q
 float zoom = 1.0;
 
 void  changeViewAndFrame(float zoom, boolean lights) {
