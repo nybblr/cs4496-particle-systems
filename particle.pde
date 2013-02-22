@@ -67,8 +67,8 @@ class Particle {
     SimpleBase d = dxPhase();
 
     // Add in k's velocity and the force's acceleration
-    d.set(0,0, d.get(0,0) + k.get(1,0) + f.x/m*h);
-    d.set(0,1, d.get(0,1) + k.get(1,1) + f.y/m*h);
+    d.set(0,0, d.get(0,0) + f.x/m*h);
+    d.set(0,1, d.get(0,1) + f.y/m*h);
 
     return d;
   }

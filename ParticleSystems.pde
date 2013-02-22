@@ -5,7 +5,7 @@ import org.ejml.ops.*;
 
 int tc = 0; // global time counter variable, in frames
 float t = 0; // time in seconds
-int fps = 30; // frames per second
+int fps = 4; // frames per second
 
 boolean step = false; // step through frames
 
