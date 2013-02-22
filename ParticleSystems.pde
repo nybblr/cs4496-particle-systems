@@ -26,9 +26,9 @@ void setup() {
   defineMyColors();
 
   // Particles
-  p1 = new Particle(new pt(100, 50, 0), 10, "Explicit Euler", blue);
-  p2 = new Particle(new pt(400, 50, 0), 10, "Ground Truth", red);
-  p3 = new Particle(new pt(700, 50, 0), 10, "Runge-Kutta 4", blue);
+  p1 = new Particle(new pt(-300, -300, 0), 10, "Explicit Euler", blue);
+  p2 = new Particle(new pt(0, -300, 0), 10, "Ground Truth", red);
+  p3 = new Particle(new pt(300, -300, 0), 10, "Runge-Kutta 4", blue);
 
   // Forces
   g = new Gravity();
@@ -62,11 +62,21 @@ void setup() {
 
 void draw() {
   hint(ENABLE_DEPTH_TEST);
-  background(255);
+  background(200);
   changeViewAndFrame(zoom, true);
 
   // Update time from counter
   t = (float)tc / fps;
+
+  // Draw the floor
+  pushMatrix();
+  translate(0, 300, 0);
+  rotateX(PI/2);
+  fill(yellow);
+  stroke(yellow);
+  rectMode(CENTER);
+  rect(0,0,width,height);
+  popMatrix();
 
   p1.draw();
   p2.draw();

@@ -8,7 +8,7 @@ int red_hue=0, yellow_hue=59, green_hue=119, cyan_hue=179, blue_hue=239, magenta
 int saturated=99, pastel=49;
 int light=99, dark=59;
 void defineMyColors() {
-  colorMode(HSB,360,100,100,100);
+  /*colorMode(HSB,360,100,100,100);*/
   black=#000000; grey=#525867; white=#FFFFFF; // set colors using Menu >  Tools > Color Selector
   red=#FF0000; green=#00FF01; blue=#0300FF; yellow=#FEFF00; cyan=#00FDFF; magenta=#FF00FB; orange=#E88102;
   ramp = new COLOR_RAMP(color(red_hue,saturated,light),color(last_hue,pastel,light));
