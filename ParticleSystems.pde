@@ -8,6 +8,7 @@ float t = 0; // time in seconds
 int fps = 60; // frames per second
 
 boolean step = false; // step through frames
+boolean usingGui = false;
 
 ControlP5 cp5;
 Toggle animate;
@@ -38,14 +39,19 @@ void setup() {
   ee = new ExplicitEuler();
   rk = new RungeKutta();
   gt = new GroundTruth();
-  ((GroundTruth)gt).initWith(p2);
 
   // Control panel
   cp5 = new ControlP5(this);
+  cp5.setAutoDraw(false);
+  cp5.setColorLabel(black);
+  cp5.setColorValueLabel(black);
+  cp5.setColorBackground(yellow);
+  cp5.setColorForeground(orange);
+  cp5.setColorActive(orange);
 
   gravity = cp5.addNumberbox("gravityValue")
-    .setPosition(100,500)
-    .setSize(100,20)
+    .setPosition(100,550)
+    /*.setSize(100,20)*/
     .setRange(0,100)
     .setMultiplier(0.1) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
@@ -53,8 +59,8 @@ void setup() {
     ;
 
   animate = cp5.addToggle("animateState")
-    .setPosition(20,500)
-    .setSize(50,20)
+    .setPosition(20,550)
+    /*.setSize(50,20)*/
     .setValue(false)
     .setMode(ControlP5.SWITCH)
     ;
@@ -99,6 +105,8 @@ void draw() {
   // Start 2D interface
   hint(DISABLE_DEPTH_TEST);
   camera();
+  noLights();
+
   cp5.draw();
 }
 
@@ -120,8 +128,8 @@ void keyReleased() {
   }
 }
 
-void gravityValue(float value) {
-  ((Gravity)g).magnitude = value;
+void mousePressed() {
+  usingGui = cp5.isMouseOver();
 }
 
 void mouseDragged() {
@@ -135,7 +143,16 @@ void mouseDragged() {
     L.y-=(mouseY-pmouseY); L.y=max(-300,L.y); L.y=min(300,L.y);
   }
 
-  if(!keyPressed) {
+  if(!keyPressed&&!usingGui) {
     a-=PI*(mouseY-pmouseY)/height; a=max(-PI/2+0.1,a); a=min(PI/2-0.1,a); b+=PI*(mouseX-pmouseX)/width;
   }
 }
+
+void mouseReleased() {
+  usingGui = false;
+}
+
+void gravityValue(float value) {
+  ((Gravity)g).magnitude = value;
+}
+
