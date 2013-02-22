@@ -5,7 +5,7 @@ import org.ejml.ops.*;
 
 int tc = 0; // global time counter variable, in frames
 float t = 0; // time in seconds
-int fps = 4; // frames per second
+int fps = 60; // frames per second
 
 boolean step = false; // step through frames
 
@@ -20,15 +20,15 @@ Integrator ee, rk, gt;
 Force g;
 
 void setup() {
-  size(800, 600);
+  size(800, 600, P3D);
   frameRate(fps);
 
   defineMyColors();
 
   // Particles
-  p1 = new Particle(new pt(100, 50), 10, "Explicit Euler", blue);
-  p2 = new Particle(new pt(400, 50), 10, "Ground Truth", red);
-  p3 = new Particle(new pt(700, 50), 10, "Runge-Kutta 4", blue);
+  p1 = new Particle(new pt(100, 50, 0), 10, "Explicit Euler", blue);
+  p2 = new Particle(new pt(400, 50, 0), 10, "Ground Truth", red);
+  p3 = new Particle(new pt(700, 50, 0), 10, "Runge-Kutta 4", blue);
 
   // Forces
   g = new Gravity();
@@ -61,7 +61,9 @@ void setup() {
 }
 
 void draw() {
+  hint(ENABLE_DEPTH_TEST);
   background(255);
+  changeViewAndFrame(zoom, true);
 
   // Update time from counter
   t = (float)tc / fps;
@@ -82,6 +84,11 @@ void draw() {
     tc++;
     step = false;
   }
+
+  // Start 2D interface
+  hint(DISABLE_DEPTH_TEST);
+  camera();
+  cp5.draw();
 }
 
 void keyPressed() {
@@ -104,4 +111,15 @@ void keyReleased() {
 
 void gravityValue(float value) {
   ((Gravity)g).magnitude = value;
+}
+
+void mouseDragged() {
+  if(keyPressed&&key=='z') { // zoom
+    zoom += (mouseY - pmouseY)/200.0;
+    zoom = max(zoom, 0.4);
+  }
+
+  if(!keyPressed) {
+    a-=PI*(mouseY-pmouseY)/height; a=max(-PI/2+0.1,a); a=min(PI/2-0.1,a);  b+=PI*(mouseX-pmouseX)/width;
+  }
 }
