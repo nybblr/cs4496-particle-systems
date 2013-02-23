@@ -6,13 +6,16 @@ import org.ejml.ops.*;
 int tc = 0; // global time counter variable, in frames
 float t = 0; // time in seconds
 int fps = 60; // frames per second
+float h; // timestep size
 
 boolean step = false; // step through frames
 boolean usingGui = false;
 
 ControlP5 cp5;
 Toggle animate;
+Button stepping;
 Numberbox gravity;
+Numberbox timestep;
 
 Particle p1, p2, p3;
 
@@ -35,6 +38,9 @@ void setup() {
   g = new Gravity();
   float dg = ((Gravity)g).magnitude;
 
+  // Constants
+  float h0 = 1.0/(float)fps;
+
   // Integrators
   ee = new ExplicitEuler();
   rk = new RungeKutta();
@@ -50,7 +56,7 @@ void setup() {
   cp5.setColorActive(orange);
 
   gravity = cp5.addNumberbox("gravityValue")
-    .setPosition(100,550)
+    .setPosition(80,550)
     /*.setSize(100,20)*/
     .setRange(0,100)
     .setMultiplier(0.1) // set the sensitifity of the numberbox
@@ -58,11 +64,25 @@ void setup() {
     .setValue(dg)
     ;
 
+  timestep = cp5.addNumberbox("timestepValue")
+    .setPosition(170,550)
+    /*.setSize(100,20)*/
+    .setRange(0,10)
+    .setMultiplier(0.001) // set the sensitifity of the numberbox
+    .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
+    .setValue(h0)
+    ;
+
   animate = cp5.addToggle("animateState")
     .setPosition(20,550)
     /*.setSize(50,20)*/
     .setValue(false)
     .setMode(ControlP5.SWITCH)
+    ;
+
+  stepping = cp5.addButton("stepState")
+    .setPosition(250,550)
+    /*.setSize(50,20)*/
     ;
 }
 
@@ -94,9 +114,9 @@ void draw() {
     g.applyForce(p1);
     g.applyForce(p2);
     g.applyForce(p3);
-    ee.step(p1, 1.0 / fps);
-    rk.step(p3, 1.0 / fps);
-    gt.step(p2, 1.0 / fps);
+    ee.step(p1, h);
+    rk.step(p3, h);
+    gt.step(p2, h);
 
     tc++;
     step = false;
@@ -156,3 +176,10 @@ void gravityValue(float value) {
   ((Gravity)g).magnitude = value;
 }
 
+void timestepValue(float value) {
+  h = value;
+}
+
+void stepState(boolean value) {
+  step = value;
+}
