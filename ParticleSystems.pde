@@ -11,6 +11,8 @@ float h; // timestep size
 boolean step = false; // step through frames
 boolean usingGui = false;
 
+Mode mode;
+
 ControlP5 cp5;
 Toggle animate;
 Button stepping;
@@ -18,6 +20,7 @@ Numberbox gravity;
 Numberbox timestep;
 
 Particle p1, p2, p3;
+Particle[] ps = new Particle[50];
 
 Integrator ee, rk, gt;
 
@@ -28,6 +31,8 @@ void setup() {
   frameRate(fps);
 
   defineMyColors();
+
+  mode = Mode.GALILEO;
 
   // Particles
   p1 = new Particle(new pt(-300, -300, 0), 10, "Explicit Euler", blue);
