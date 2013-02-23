@@ -27,17 +27,23 @@ Integrator ee, rk, gt;
 Force g;
 
 void setup() {
+  // Setup
   size(800, 600, P3D);
   frameRate(fps);
 
   defineMyColors();
 
-  mode = Mode.GALILEO;
+  mode = Mode.galileo;
 
   // Particles
   p1 = new Particle(new pt(-300, -300, 0), 10, "Explicit Euler", blue);
   p2 = new Particle(new pt(0, -300, 0), 10, "Ground Truth", red);
   p3 = new Particle(new pt(300, -300, 0), 10, "Runge-Kutta 4", blue);
+
+  for(int i = 0; i < ps.length; i++) {
+    pt x = new pt(random(-200, 200), random(-200, 200), random(-200, 200));
+    ps[i] = new Particle(x, 10, null, blue);
+  }
 
   // Forces
   g = new Gravity();
@@ -62,7 +68,6 @@ void setup() {
 
   gravity = cp5.addNumberbox("gravityValue")
     .setPosition(80,550)
-    /*.setSize(100,20)*/
     .setRange(0,100)
     .setMultiplier(0.1) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
@@ -71,7 +76,6 @@ void setup() {
 
   timestep = cp5.addNumberbox("timestepValue")
     .setPosition(170,550)
-    /*.setSize(100,20)*/
     .setRange(0,10)
     .setMultiplier(0.001) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
@@ -80,14 +84,12 @@ void setup() {
 
   animate = cp5.addToggle("animateState")
     .setPosition(20,550)
-    /*.setSize(50,20)*/
     .setValue(false)
     .setMode(ControlP5.SWITCH)
     ;
 
   stepping = cp5.addButton("stepState")
     .setPosition(250,550)
-    /*.setSize(50,20)*/
     ;
 }
 
@@ -141,6 +143,8 @@ void keyPressed() {
 }
 
 void keyReleased() {
+  if(key=='m')
+    mode = mode.next();
   if(key==' ')
     animate.setState(false);
   if(key=='r') {

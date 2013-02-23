@@ -17,7 +17,8 @@ class Particle {
     this.v0 = new vec(p.v);
     this.r = p.r;
     this.c = p.c;
-    this.label = new String(p.label);
+    if(p.label != null)
+      this.label = new String(p.label);
   }
 
   Particle(pt x, vec v, vec f, float m) {
@@ -100,10 +101,12 @@ class Particle {
     noStroke();
     show(x, r);
 
-    fill(black);
-    stroke(black);
-    textAlign(CENTER, BOTTOM);
-    text(label, x.x, x.y-r);
+    if(label != null && !label.isEmpty()) {
+      fill(black);
+      stroke(black);
+      textAlign(CENTER, BOTTOM);
+      text(label, x.x, x.y-r);
+    }
 
     return this;
   }

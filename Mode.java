@@ -1,4 +1,7 @@
 public enum Mode {
-  GALILEO,
-  SNOW
-};
+	galileo, snow;
+
+	Mode next() {
+		return values()[(ordinal() + 1) % values().length];
+	}
+}
