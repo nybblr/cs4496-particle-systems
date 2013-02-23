@@ -3,6 +3,8 @@ import org.ejml.*;
 import org.ejml.simple.*;
 import org.ejml.ops.*;
 
+Mode mode;
+
 int tc = 0; // global time counter variable, in frames
 float t = 0; // time in seconds
 int fps = 60; // frames per second
@@ -10,8 +12,6 @@ float h; // timestep size
 
 boolean step = false; // step through frames
 boolean usingGui = false;
-
-Mode mode;
 
 ControlP5 cp5;
 Toggle animate;
@@ -49,7 +49,7 @@ void setup() {
   g = new Gravity();
   float dg = ((Gravity)g).magnitude;
 
-  c = new Collision(new pt(), new vec(600,600,600));
+  c = new Collision(new pt(), new vec(500,500,500));
 
   // Constants
   float h0 = 1.0/(float)fps;
@@ -136,7 +136,15 @@ void draw() {
     break;
 
   case snow:
-    step = false;
+    Collision cf = (Collision)c;
+    pushMatrix();
+    noFill();
+    stroke(orange);
+    strokeWeight(5);
+    rectMode(CENTER);
+    translate(cf.origin.x, cf.origin.y, cf.origin.z);
+    box(cf.dim.x, cf.dim.y, cf.dim.z);
+    popMatrix();
 
     break;
   }

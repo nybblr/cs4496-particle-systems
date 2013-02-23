@@ -114,6 +114,7 @@ class Particle {
   Particle drawGuide() {
     fill(c);
     stroke(c);
+    strokeWeight(5);
     line(-width/2, x.y+r, width/2, x.y+r);
 
     return this;
