@@ -103,32 +103,42 @@ void draw() {
   // Update time from counter
   t = (float)tc / fps;
 
-  // Draw the floor
-  pushMatrix();
-  translate(0, height/2, 0);
-  rotateZ(PI/2);
-  fill(yellow);
-  noStroke();
-  rectMode(CENTER);
-  /*rect(0,0,width,height);*/
-  box(10, width, 150);
-  popMatrix();
+  switch(mode) {
+  case galileo:
+    // Draw the floor
+    pushMatrix();
+    translate(0, height/2, 0);
+    rotateZ(PI/2);
+    fill(yellow);
+    noStroke();
+    rectMode(CENTER);
+    /*rect(0,0,width,height);*/
+    box(10, width, 150);
+    popMatrix();
 
-  p1.draw();
-  p2.draw();
-  p2.drawGuide();
-  p3.draw();
+    p1.draw();
+    p2.draw();
+    p2.drawGuide();
+    p3.draw();
 
-  if(step || animate.getState()) {
-    g.applyForce(p1);
-    g.applyForce(p2);
-    g.applyForce(p3);
-    ee.step(p1, h);
-    rk.step(p3, h);
-    gt.step(p2, h);
+    if(step || animate.getState()) {
+      g.applyForce(p1);
+      g.applyForce(p2);
+      g.applyForce(p3);
+      ee.step(p1, h);
+      rk.step(p3, h);
+      gt.step(p2, h);
 
-    tc++;
+      tc++;
+      step = false;
+    }
+
+    break;
+
+  case snow:
     step = false;
+
+    break;
   }
 
   // Start 2D interface
@@ -161,6 +171,9 @@ void keyReleased() {
     ee.reset();
     rk.reset();
     gt.reset();
+
+    t = 0;
+    tc = 0;
   }
 }
 
