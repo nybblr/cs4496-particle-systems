@@ -24,7 +24,7 @@ Particle[] ps = new Particle[50];
 
 Integrator ee, rk, gt;
 
-Force g;
+Force g, c;
 
 void setup() {
   // Setup
@@ -48,6 +48,8 @@ void setup() {
   // Forces
   g = new Gravity();
   float dg = ((Gravity)g).magnitude;
+
+  c = new Collision(new pt(), new vec(600,600,600));
 
   // Constants
   float h0 = 1.0/(float)fps;
@@ -135,6 +137,11 @@ void draw() {
   noLights();
 
   cp5.draw();
+
+  fill(black);
+  stroke(black);
+  textAlign(RIGHT);
+  text("You are in " + mode + " mode.", 750, 570);
 }
 
 void keyPressed() {
