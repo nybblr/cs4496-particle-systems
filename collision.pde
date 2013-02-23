@@ -12,6 +12,13 @@ class Collision extends Force {
   // force is easier to apply directly
   // to the velocity.
   Particle applyForce(Particle p) {
+    vec s = V(origin, p.x).absolute();
+    vec b = (new vec(dim)).div(2).sub(p.r);
+
+    if(s.x >= b.x || s.y >= b.y || s.z >= b.z) {
+      p.v.rev();
+    }
+
     return p;
   }
 

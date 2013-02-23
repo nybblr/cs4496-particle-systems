@@ -146,6 +146,13 @@ void draw() {
     box(cf.dim.x, cf.dim.y, cf.dim.z);
     popMatrix();
 
+    for(int i = 0; i < ps.length; i++) {
+      ps[i].draw();
+      g.applyForce(ps[i]);
+      c.applyForce(ps[i]);
+      ee.step(ps[i], h);
+    }
+
     break;
   }
 
@@ -198,6 +205,12 @@ void mouseDragged() {
   if(keyPressed&&key=='e') {
     L.x-=(mouseX-pmouseX); L.x=max(-300,L.x); L.x=min(300,L.x);
     L.y-=(mouseY-pmouseY); L.y=max(-300,L.y); L.y=min(300,L.y);
+  }
+
+  if(keyPressed&&key=='s') {
+    pt cv = ((Collision)c).origin;
+    cv.x+=(mouseX-pmouseX); cv.x=max(-300,cv.x); cv.x=min(300,cv.x);
+    cv.y+=(mouseY-pmouseY); cv.y=max(-300,cv.y); cv.y=min(300,cv.y);
   }
 
   if(!keyPressed&&!usingGui) {
