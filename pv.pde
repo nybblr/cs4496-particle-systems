@@ -21,6 +21,19 @@ class vec { float x=0,y=0,z=0;
    vec zero() {x=0; y=0; z=0; return this;}
    vec rev() {x=-x; y=-y; z=-z; return this;};
    vec absolute() {x=abs(x); y=abs(y); z=abs(z); return this;};
+   vec face() {
+     // What is the primary axis component?
+     vec d = (new vec(this)).absolute();
+     vec p = new vec();
+     if(d.x > d.y && d.x > d.z)
+       p.x = this.x/d.x;
+     else if(d.y > d.x && d.y > d.z)
+       p.y = this.y/d.y;
+     else
+       p.z = this.z/d.z;
+
+     return p;
+   }
    float norm() {return(sqrt(sq(x)+sq(y)+sq(z)));};
    vec normalize() {float n=norm(); if (n>0.000001) {div(n);}; return this;};
    vec rotate(float a, vec I, vec J) {float x=d(this,I), y=d(this,J); float c=cos(a), s=sin(a); add(x*c-x-y*s,I); add(x*s+y*c-y,J); return this; }; // Rotate by a in plane (I,J)
