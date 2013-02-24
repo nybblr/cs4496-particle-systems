@@ -74,6 +74,7 @@ void setup() {
     .setRange(0,500)
     .setMultiplier(1.0) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
+    .setLabel("Gravity Value")
     .setValue(dg)
     ;
 
@@ -82,6 +83,7 @@ void setup() {
     .setRange(0,10)
     .setMultiplier(0.001) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
+    .setLabel("Timestep Value")
     .setValue(h0)
     ;
 
@@ -89,10 +91,12 @@ void setup() {
     .setPosition(20,550)
     .setValue(false)
     .setMode(ControlP5.SWITCH)
+    .setLabel("Animate")
     ;
 
   stepping = cp5.addButton("stepState")
     .setPosition(250,550)
+    .setLabel("One Step")
     ;
 }
 
@@ -169,7 +173,8 @@ void draw() {
   fill(black);
   stroke(black);
   textAlign(RIGHT);
-  text("You are in " + mode + " mode.", 750, 570);
+  text("You are in " + mode + " mode.", 780, 30);
+  text("CONTROLS: 'r':reset, spacebar:animate, drag+'s':shake globe\n'm':switch modes, drag:pan, drag+'z':zoom, drag+'e':view center", 780, 560);
 }
 
 void keyPressed() {
