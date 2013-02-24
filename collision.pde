@@ -21,7 +21,14 @@ class Collision extends Force {
     show(p.x, f.face().mul(50));
 
     if(s.x >= b.x || s.y >= b.y || s.z >= b.z) {
-      p.v.rev();
+      // Check if we are entering a collision
+      vec wn = f.face().rev(); // cube wall normal
+
+      if(d(p.v, wn) < 0) {
+        // Get the normal component of the velocity
+        vec vn = V(d(p.v, wn), wn);
+        p.v.add(vn.mul(-2.0));
+      }
     }
 
     return p;
