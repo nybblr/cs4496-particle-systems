@@ -87,15 +87,6 @@ class Particle {
     return d;
   }
 
-  Particle toParticle(SimpleBase m) {
-    Particle p = new Particle(this);
-
-    p.x.x = (float)m.get(0,0); p.x.y = (float)m.get(0,1); p.x.z = (float)m.get(0,2);
-    p.v.x = (float)m.get(1,0); p.v.y = (float)m.get(1,1); p.v.z = (float)m.get(1,2);
-
-    return p;
-  }
-
   Particle draw() {
     fill(c);
     noStroke();

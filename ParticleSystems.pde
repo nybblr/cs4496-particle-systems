@@ -42,7 +42,8 @@ void setup() {
 
   for(int i = 0; i < ps.length; i++) {
     pt x = new pt(random(-200, 200), random(-200, 200), random(-200, 200));
-    ps[i] = new Particle(x, 10, null, blue);
+    color cl = (random(1) >= 0.5) ? blue : white;
+    ps[i] = new Particle(x, 10, null, cl);
   }
 
   // Forces
@@ -70,8 +71,8 @@ void setup() {
 
   gravity = cp5.addNumberbox("gravityValue")
     .setPosition(80,550)
-    .setRange(0,100)
-    .setMultiplier(0.1) // set the sensitifity of the numberbox
+    .setRange(0,500)
+    .setMultiplier(1.0) // set the sensitifity of the numberbox
     .setDirection(Controller.HORIZONTAL) // change the control direction to left/right
     .setValue(dg)
     ;
@@ -152,6 +153,8 @@ void draw() {
       c.applyForce(ps[i]);
       ee.step(ps[i], h);
     }
+
+    ((Collision)c).moving();
 
     break;
   }
