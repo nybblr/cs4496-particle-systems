@@ -174,7 +174,7 @@ void draw() {
   stroke(black);
   textAlign(RIGHT);
   text("You are in " + mode + " mode.", 780, 30);
-  text("CONTROLS: 'r':reset, spacebar:animate, drag+'s':shake globe\n'm':switch modes, drag:pan, drag+'z':zoom, drag+'e':view center", 780, 560);
+  text("CONTROLS: 'r':reset, spacebar:animate, drag+'s':shake globe\n'm':switch modes, drag:rotate, drag+'z':zoom, drag+'e':view center", 780, 560);
 }
 
 void keyPressed() {
