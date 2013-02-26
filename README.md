@@ -15,7 +15,7 @@ This Processing applet requires a few dependencies:
 
 Once you have installed Processing, locate the Processing's `Processing/libraries` directory (on Mac OSX, it is under `~/Documents/` by default) and copy both ControlP5 and EJML into the directory; restart Processing.
 
-You should be able to compile and run the app from Processing's GUI or the command line tools included in beta 7. A precompiled version of the applet is also included under `/tmp`, **but it may not run on your computer.**
+You should be able to compile and run the app from Processing's GUI or the command line tools included in beta 7. A precompiled version of the applet is also included under `/apps`, **but it may not run on your computer.**
 
 Controls & Notes
 ----------------
