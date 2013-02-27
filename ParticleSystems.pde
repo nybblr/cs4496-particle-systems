@@ -21,10 +21,11 @@ Numberbox timestep;
 
 Particle p1, p2, p3;
 Particle[] ps = new Particle[50];
+Particle pc;
 
 Integrator ee, rk, gt;
 
-Force g, c;
+Force g, c, s;
 
 void setup() {
   // Setup
@@ -33,7 +34,7 @@ void setup() {
 
   defineMyColors();
 
-  mode = Mode.galileo;
+  mode = Mode.tinker;
 
   // Particles
   p1 = new Particle(new pt(-300, -300, 0), 10, "Explicit Euler", blue);
@@ -46,11 +47,15 @@ void setup() {
     ps[i] = new Particle(x, 10, null, cl);
   }
 
+  pc = new Particle(new pt(100, -100, 0), 15, null, red);
+
   // Forces
   g = new Gravity();
   float dg = ((Gravity)g).magnitude;
 
   c = new Collision(new pt(), new vec(500,500,500));
+
+  s = new Constraint(new pt(), 300);
 
   // Constants
   float h0 = 1.0/(float)fps;
@@ -117,7 +122,6 @@ void draw() {
     fill(yellow);
     noStroke();
     rectMode(CENTER);
-    /*rect(0,0,width,height);*/
     box(10, width, 150);
     popMatrix();
 
@@ -159,6 +163,23 @@ void draw() {
     }
 
     ((Collision)c).moving();
+
+    break;
+
+  case tinker:
+    Constraint sf = (Constraint)s;
+    pushMatrix();
+    noFill();
+    stroke(orange);
+    strokeWeight(10);
+    ellipseMode(CENTER);
+    ellipse(sf.x.x, sf.x.z, sf.r*2.0, sf.r*2.0);
+    popMatrix();
+
+    pc.draw();
+    g.applyForce(pc);
+    s.applyForce(pc);
+    ee.step(pc, h);
 
     break;
   }

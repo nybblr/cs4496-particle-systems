@@ -1,6 +1,7 @@
 public enum Mode {
 	galileo("Galileo"),
-	snow("Snowglobe");
+	snow("Snowglobe"),
+	tinker("Tinkertoy");
 
 	private final String name;
 
