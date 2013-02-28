@@ -47,7 +47,8 @@ void setup() {
     ps[i] = new Particle(x, 10, null, cl);
   }
 
-  pc = new Particle(new pt(100, -100, 0), 15, null, red);
+  float angle = -PI/3;
+  pc = new Particle(new pt(300.0*cos(angle), 300.0*sin(angle), 0), 15, null, red);
 
   // Forces
   g = new Gravity();

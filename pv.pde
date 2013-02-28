@@ -13,6 +13,7 @@ class vec { float x=0,y=0,z=0;
    vec add(float s, vec V) {x+=s*V.x; y+=s*V.y; z+=s*V.z; return this;};
    vec sub(vec V) {x-=V.x; y-=V.y; z-=V.z; return this;};
    vec sub(float s) {x-=s; y-=s; z-=s; return this;};
+   vec mul(vec f) {x*=f.x; y*=f.y; z*=f.z; return this;};
    vec mul(float f) {x*=f; y*=f; z*=f; return this;};
    vec scaleBy(float f) {x*=f; y*=f; z*=f; return this;};
    vec div(float f) {x/=f; y/=f; z/=f; return this;};
