@@ -47,7 +47,7 @@ void setup() {
     ps[i] = new Particle(x, 10, null, cl);
   }
 
-  float angle = -PI/2;
+  float angle = -PI/4;
   pc = new Particle(new pt(300.0*cos(angle), 300.0*sin(angle), 0), 15, null, red);
 
   // Forces
