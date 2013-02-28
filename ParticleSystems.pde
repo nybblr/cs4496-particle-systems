@@ -47,7 +47,7 @@ void setup() {
     ps[i] = new Particle(x, 10, null, cl);
   }
 
-  float angle = -PI/3;
+  float angle = -PI/2;
   pc = new Particle(new pt(300.0*cos(angle), 300.0*sin(angle), 0), 15, null, red);
 
   // Forces
@@ -178,9 +178,15 @@ void draw() {
     popMatrix();
 
     pc.draw();
-    g.applyForce(pc);
-    s.applyForce(pc);
-    ee.step(pc, h);
+
+    if(step || animate.getState()) {
+      g.applyForce(pc);
+      s.applyForce(pc);
+      ee.step(pc, h);
+
+      tc++;
+      step = false;
+    }
 
     break;
   }
@@ -213,6 +219,9 @@ void keyReleased() {
     p1.reset();
     p2.reset();
     p3.reset();
+    for(int i = 0; i < ps.length; i++)
+      ps[i].reset();
+    pc.reset();
     ee.reset();
     rk.reset();
     gt.reset();
