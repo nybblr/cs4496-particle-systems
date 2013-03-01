@@ -19,10 +19,11 @@ class Constraint extends Force {
     vec C   = V(pos).mul(pos).div(2).sub(0.5);
     vec dC  = V(pos);
 
-    vec ddC = V(acc).mul(pos).add(V(vel).mul(vel));
+    vec ddC = V(vel);
 
+    /*vec fbk = V(ks,C).add(V(kd,dC));*/
     vec fbk = V(ks,C).add(V(kd,dC));
-    ddC.add(fbk);
+    /*ddC.add(fbk);*/
 
     /*println(pos);*/
     /*println(C);*/
@@ -30,11 +31,11 @@ class Constraint extends Force {
     /*println(n2(dC));*/
     /*println(ddC);*/
 
-    float lambda = r*(-d(dC, frc) - p.m*d(ddC, vel)) / n2(dC);
+    float lambda = (-d(dC, frc) - p.m*d(ddC, vel)) / n2(dC);
 
     /*println(lambda);*/
 
-    return dC.mul(lambda);
+    return dC.mul(r*lambda);
 
   }
 }
