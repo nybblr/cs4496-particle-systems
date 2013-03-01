@@ -21,7 +21,7 @@ Numberbox timestep;
 
 Particle p1, p2, p3;
 Particle[] ps = new Particle[50];
-Particle pc;
+Particle pce, pcr;
 
 Integrator ee, rk, gt;
 
@@ -48,7 +48,8 @@ void setup() {
   }
 
   float angle = -PI/4;
-  pc = new Particle(new pt(300.0*cos(angle), 300.0*sin(angle), 0), 15, null, red);
+  pce = new Particle(new pt(300.0*cos(angle), 300.0*sin(angle), 0), 15, "Explicit Euler", red);
+  pcr = new Particle(new pt(300.0*cos(angle), 300.0*sin(angle), 0), 15, "Runge-Kutta 4", green);
 
   // Forces
   g = new Gravity();
@@ -177,12 +178,16 @@ void draw() {
     ellipse(sf.x.x, sf.x.z, sf.r*2.0, sf.r*2.0);
     popMatrix();
 
-    pc.draw();
+    pce.draw();
+    pcr.draw();
 
     if(step || animate.getState()) {
-      g.applyForce(pc);
-      s.applyForce(pc);
-      ee.step(pc, h);
+      g.applyForce(pce);
+      g.applyForce(pcr);
+      s.applyForce(pce);
+      s.applyForce(pcr);
+      ee.step(pce, h);
+      rk.step(pcr, h);
 
       tc++;
       step = false;
@@ -219,9 +224,13 @@ void keyReleased() {
     p1.reset();
     p2.reset();
     p3.reset();
+
     for(int i = 0; i < ps.length; i++)
       ps[i].reset();
-    pc.reset();
+
+    pce.reset();
+    pcr.reset();
+
     ee.reset();
     rk.reset();
     gt.reset();

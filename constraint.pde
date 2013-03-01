@@ -16,13 +16,15 @@ class Constraint extends Force {
     vec frc = V(p.f).div(r);
     vec acc = V(frc).div(p.m);
 
-    vec C   = V(pos).mul(pos).div(2).sub(0.5);
-    vec dC  = V(pos);
+    /*vec C   = V(pos).mul(pos).div(2).sub(0.5);*/
+    float C  = 0.5*n2(pos) - 0.5;
+    float Cd = d(pos,vel);
 
+    vec dC  = V(pos);
     vec ddC = V(vel);
 
     /*vec fbk = V(ks,C).add(V(kd,dC));*/
-    vec fbk = V(ks,C).add(V(kd,dC));
+    float fbk = -ks*C - kd*Cd;
     /*ddC.add(fbk);*/
 
     /*println(pos);*/
