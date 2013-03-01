@@ -27,13 +27,14 @@ class Constraint extends Force {
     float fbk = -ks*C - kd*Cd;
     /*ddC.add(fbk);*/
 
+    /*println(fbk);*/
     /*println(pos);*/
     /*println(C);*/
     /*println(dC);*/
     /*println(n2(dC));*/
     /*println(ddC);*/
 
-    float lambda = (-d(dC, frc) - p.m*d(ddC, vel)) / n2(dC);
+    float lambda = (-d(dC, frc) - p.m*d(ddC, vel) + fbk) / n2(dC);
 
     /*println(lambda);*/
 
